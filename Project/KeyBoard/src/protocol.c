@@ -1954,7 +1954,7 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 				ChangeLedState(GET_XY(u16Led[u8Key]), true);
 
 				/* camera address */
-				g_u8CamAddr = u8BJZSKey[u8Key];
+				g_u8CamAddr = u8Key;
 				TURN_OFF_PRESENT();
 				
 				break;
