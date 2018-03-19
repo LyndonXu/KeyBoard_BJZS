@@ -2088,8 +2088,8 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 				}
 				else
 				{
-					pBuf[_BJZS_Special] = 0;
-					pBuf[_BJZS_Key] = 0x71 + u8Key;
+					pBuf[_BJZS_Special] = BJZS_CTRL;
+					pBuf[_BJZS_Key] = 0x70 + u8Key;
 					pBuf[_BJZS_Extern] = boIsLongPress[u8Key];
 					
 					ChangeLedBlinkState(GET_XY(u16Led[u8Key]), false);
@@ -2501,8 +2501,8 @@ static bool RockProcessForBJZS(StKeyMixIn *pKeyIn)
 	y = pKeyIn->unKeyMixIn.stRockState.u16RockYValue;
 	z = pKeyIn->unKeyMixIn.stRockState.u16RockZValue;
 	
-	x >>= 1;
-	y >>= 1;
+	x >>= 2;
+	y >>= 2;
 	pBuf[_BJZS_Special] = BJZS_CTRL;
 	if ((u8Dir & (_YNA_CAM_LEFT | _YNA_CAM_UP | _YNA_CAM_RIGHT | _YNA_CAM_DOWN)) == 0)
 	{
@@ -2791,8 +2791,8 @@ static bool MiniRockProcessForBJZS(StKeyMixIn *pKeyIn)
 	x = pKeyIn->unKeyMixIn.stRockState.u16RockXValue;
 	y = pKeyIn->unKeyMixIn.stRockState.u16RockYValue;
 	
-	x >>= 1;
-	y >>= 1;
+	x >>= 2;
+	y >>= 2;
 	pBuf[_BJZS_Special] = BJZS_ALT;
 	if ((u8Dir & (_YNA_CAM_LEFT | _YNA_CAM_UP | _YNA_CAM_RIGHT | _YNA_CAM_DOWN)) == 0)
 	{
