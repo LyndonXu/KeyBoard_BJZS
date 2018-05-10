@@ -10,23 +10,23 @@ u8 g_u8KeyTable[KEY_Y_CNT][KEY_X_CNT] =
 	{
 		_Key_Make_Live,
 		_Key_Make_MutliRecord,
-		_Key_Ctrl_Machine_Switch2,
-		_Key_Ctrl_Machine_Switch4,
-		_Key_Ctrl_Machine_Down,
-		_Key_Cam_Ctrl_Wide,
 		_Key_Cam_Ctrl_Present2,
 		_Key_Cam_Ctrl_Present4,
+		_Key_Cam_Ctrl_Present6,
+		_Key_Cam_Ctrl_Present8,
+		_Key_Cam_Ctrl_Wide,
+		_Key_Ctrl_Machine_Down,
 
 	},	/* 1 */
 	{
 		_Key_Make_Record,
 		_Key_Make_FullScreen,
-		_Key_Ctrl_Machine_Switch1,
-		_Key_Ctrl_Machine_Switch3,
-		_Key_Ctrl_Machine_Up,
-		_Key_Cam_Ctrl_Tele,
 		_Key_Cam_Ctrl_Present1,
 		_Key_Cam_Ctrl_Present3,
+		_Key_Cam_Ctrl_Present5,
+		_Key_Cam_Ctrl_Present7,
+		_Key_Cam_Ctrl_Tele,
+		_Key_Ctrl_Machine_Up,
 	},	/* 2 */
 	{
 		_Key_PVW_1,

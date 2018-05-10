@@ -49,6 +49,7 @@ int main()
 
 	ReadSaveData();
 	MessageUartInit();
+	MessageUart2Init();
 	MessageUart3Init();
 
 #if 1	
@@ -150,8 +151,9 @@ int main()
 
 	while (1)
 	{
-		void *pMsgIn = MessageUartFlush(false);
 		void *pKeyIn = KeyBufGetBuf();
+		void *pMsgIn = MessageUartFlush(false);
+		void *pMsgIn2 = MessageUart2Flush(false);
 		void *pMsgIn3 = MessageUart3Flush(false);
 		void *pMsgUSB = MessageUSBFlush(false);
 		//void *pMsgUSB = NULL;
@@ -176,6 +178,7 @@ int main()
 		
 		KeyBufGetEnd(pKeyIn);				
 		MessageUartRelease(pMsgIn);	
+		MessageUart2Release(pMsgIn2);	
 		MessageUart3Release(pMsgIn3);	
 		MessageUSBRelease(pMsgUSB);	
 

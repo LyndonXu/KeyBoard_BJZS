@@ -47,7 +47,7 @@ PW12:	PB14---->X
 #define LED_X_1				GPIO_Pin_0
 #define LED_X_2				GPIO_Pin_1
 #define LED_X_3				GPIO_Pin_2
-#define LED_X_4				GPIO_Pin_3
+#define LED_X_4				GPIO_Pin_15
 #define LED_X_5				GPIO_Pin_4
 #define LED_X_6				GPIO_Pin_5
 #define LED_X_7				GPIO_Pin_6
@@ -55,7 +55,7 @@ PW12:	PB14---->X
 
 #define LED_X_PORT_1		GPIOA
 #define LED_X_PORT_2		GPIOA
-#define LED_X_PORT_3		GPIOA
+#define LED_X_PORT_3		GPIOD
 #define LED_X_PORT_4		GPIOA
 #define LED_X_PORT_5		GPIOA
 #define LED_X_PORT_6		GPIOA

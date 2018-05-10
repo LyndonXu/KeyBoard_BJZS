@@ -651,6 +651,22 @@ void CopyToUart1Message(void *pData, u32 u32Length)
 	}
 
 }
+void CopyToUart2Message(void *pData, u32 u32Length)
+{
+	if ((pData != NULL) && (u32Length != 0))
+	{
+		void *pBuf = malloc(u32Length);
+		if (pBuf != NULL)
+		{
+			memcpy(pBuf, pData, u32Length);
+			if (MessageUart2Write(pBuf, true, _IO_Reserved, u32Length) != 0)
+			{
+				free (pBuf);
+			}	
+		}
+	}
+}
+
 void CopyToUart3Message(void *pData, u32 u32Length)
 {
 	if ((pData != NULL) && (u32Length != 0))
@@ -671,10 +687,7 @@ void CopyToUart3Message(void *pData, u32 u32Length)
 void CopyToUartMessage(void *pData, u32 u32Length)
 {
 	CopyToUart1Message(pData, u32Length);
-	//CopyToUart3Message(pData, u32Length);
-}
-void CopyToUart2Message(void *pData, u32 u32Length)
-{
+	CopyToUart2Message(pData, u32Length);
 }
 
 void FlushHIDMsgForBJZS(void *pData, u32 u32Length)
@@ -1464,6 +1477,10 @@ static bool KeyBoardProcess(StKeyMixIn *pKeyIn)
 			case _Key_Cam_Ctrl_Present2:
 			case _Key_Cam_Ctrl_Present3:
 			case _Key_Cam_Ctrl_Present4:
+			case _Key_Cam_Ctrl_Present5:
+			case _Key_Cam_Ctrl_Present6:
+			case _Key_Cam_Ctrl_Present7:
+			case _Key_Cam_Ctrl_Present8:
 			{
 				pBuf[_YNA_Cmd] = 0x40;
 				pBuf[_YNA_Data2] = u8KeyValue - _Key_Cam_Ctrl_Present1;			
@@ -1847,12 +1864,16 @@ static PFun_KeyProcess s_KeyProcessArr[_Key_Reserved] =
 };
 
 
-const u16 c_u16LedPresent[4] = 
+const u16 c_u16LedPresent[] = 
 {
 	_Led_Cam_Ctrl_Present1,
 	_Led_Cam_Ctrl_Present2,
 	_Led_Cam_Ctrl_Present3,
 	_Led_Cam_Ctrl_Present4,
+	_Led_Cam_Ctrl_Present5,
+	_Led_Cam_Ctrl_Present6,
+	_Led_Cam_Ctrl_Present7,
+	_Led_Cam_Ctrl_Present8,
 };
 
 #define TURN_OFF_PRESENT()			ChangeLedArrayState(c_u16LedPresent, sizeof(c_u16LedPresent) / sizeof(u16), false);
@@ -2330,9 +2351,13 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 			case _Key_Cam_Ctrl_Present2:
 			case _Key_Cam_Ctrl_Present3:
 			case _Key_Cam_Ctrl_Present4:
+			case _Key_Cam_Ctrl_Present5:
+			case _Key_Cam_Ctrl_Present6:
+			case _Key_Cam_Ctrl_Present7:
+			case _Key_Cam_Ctrl_Present8:
 			{
-				static u32 u32KeyDownTime[4];
-				static bool boIsLongPress[4];
+				static u32 u32KeyDownTime[8];
+				static bool boIsLongPress[8];
 				u8 u8Key = u8KeyValue - _Key_Cam_Ctrl_Present1;
 				if (pKeyState->u8KeyState == KEY_DOWN)
 				{
@@ -2882,7 +2907,7 @@ static bool PushPodProcessForBJZS(StKeyMixIn *pKeyIn)
 	pBuf[_BJZS_Special] = BJZS_ALT;
 	pBuf[_BJZS_Key] = 0x30;
 	
-	u16Value = u16Value * 0x64 / PUSH_ROD_MAX_VALUE;
+	u16Value = u16Value * 0xFF / PUSH_ROD_MAX_VALUE;
 	
 	pBuf[_BJZS_Extern] = u16Value;
 
@@ -2991,14 +3016,25 @@ bool PCEchoProcessYNA(StIOFIFO *pFIFO)
 	{
 		case 0x40:
 		{
-			if ((u8Array < 4) && (pMsg[_YNA_Data2] < 4))
+			if ((u8Array == 0) && (pMsg[_YNA_Data2] < 8))
 			{
-				const u16 u16Led[][4] = 
+				const u16 u16Led[][8] = 
 				{
 					{
 						_Led_Cam_Ctrl_Present1, _Led_Cam_Ctrl_Present2, 
-						_Led_Cam_Ctrl_Present3, _Led_Cam_Ctrl_Present4
+						_Led_Cam_Ctrl_Present3, _Led_Cam_Ctrl_Present4,
+						_Led_Cam_Ctrl_Present5, _Led_Cam_Ctrl_Present6, 
+						_Led_Cam_Ctrl_Present7, _Led_Cam_Ctrl_Present8,
 					},
+				};
+				ChangeLedArrayState(u16Led[u8Array], 8, false);
+				ChangeLedState(GET_XY(u16Led[u8Array][pMsg[_YNA_Data2]]), boIsLight);
+				
+			}
+			else if ((u8Array < 4) && (pMsg[_YNA_Data2] < 4))
+			{
+				const u16 u16Led[][4] = 
+				{
 					{
 						_Led_Ctrl_Machine_Switch1, _Led_Ctrl_Machine_Switch2, 
 						_Led_Ctrl_Machine_Switch3, _Led_Ctrl_Machine_Switch4

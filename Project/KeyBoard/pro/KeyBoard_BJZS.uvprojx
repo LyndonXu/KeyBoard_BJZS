@@ -639,6 +639,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\message_usb.c</FilePath>
             </File>
+            <File>
+              <FileName>message_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\message_2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

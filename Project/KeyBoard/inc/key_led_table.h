@@ -82,6 +82,10 @@ enum
 	_Key_Cam_Ctrl_Present2,
 	_Key_Cam_Ctrl_Present3,
 	_Key_Cam_Ctrl_Present4,
+	_Key_Cam_Ctrl_Present5,
+	_Key_Cam_Ctrl_Present6,
+	_Key_Cam_Ctrl_Present7,
+	_Key_Cam_Ctrl_Present8,
 
 
 	_Key_Effect_1,
@@ -113,24 +117,30 @@ enum
 	
 	_Led_Make_Live = LOC(1, 1),
 	_Led_Make_MutliRecord = LOC(2, 1),
-	_Led_Ctrl_Machine_Switch2 = LOC(3, 1),
-	_Led_Ctrl_Machine_Switch4 = LOC(4, 1),
-	_Led_Ctrl_Machine_Down = LOC(5, 1),
-	_Led_Cam_Ctrl_Wide = LOC(6, 1),
-	_Led_Cam_Ctrl_Present2 = LOC(7, 1),
-	_Led_Cam_Ctrl_Present4 = LOC(8, 1),
+	_Led_Cam_Ctrl_Present2 = LOC(3, 1),
+	_Led_Cam_Ctrl_Present4 = LOC(4, 1),
+	_Led_Cam_Ctrl_Present6 = LOC(5, 1),
+	_Led_Cam_Ctrl_Present8 = LOC(6, 1),
+	_Led_Cam_Ctrl_Wide = LOC(7, 1),
+	_Led_Ctrl_Machine_Down = LOC(8, 1),
 
 	/* 1 */
 
 	_Led_Make_Record = LOC(1, 2),
 	_Led_Make_FullScreen = LOC(2, 2),
-	_Led_Ctrl_Machine_Switch1 = LOC(3, 2),
-	_Led_Ctrl_Machine_Switch3 = LOC(4, 2),
-	_Led_Ctrl_Machine_Up = LOC(5, 2),
-	_Led_Cam_Ctrl_Tele = LOC(6, 2),
-	_Led_Cam_Ctrl_Present1 = LOC(7, 2),
-	_Led_Cam_Ctrl_Present3 = LOC(8, 2),
+	_Led_Cam_Ctrl_Present1 = LOC(3, 2),
+	_Led_Cam_Ctrl_Present3 = LOC(4, 2),
+	_Led_Cam_Ctrl_Present5 = LOC(5, 2),
+	_Led_Cam_Ctrl_Present7 = LOC(6, 2),
+	_Led_Cam_Ctrl_Tele = LOC(7, 2),
+	_Led_Ctrl_Machine_Up = LOC(8, 2),
 	/* 2 */
+	
+	_Led_Ctrl_Machine_Switch1,
+	_Led_Ctrl_Machine_Switch2,
+	_Led_Ctrl_Machine_Switch3,
+	_Led_Ctrl_Machine_Switch4,
+
 
 	_Led_PVW_1 = LOC(1, 3),
 	_Led_PVW_2 = LOC(2, 3),
