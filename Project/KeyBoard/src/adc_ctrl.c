@@ -307,11 +307,11 @@ static bool RockGetValue(StRockState *pRockState)
 			}
 			if (i == 0)
 			{
-				pRockState->u8RockDir |= _YNA_CAM_RIGHT;
+				pRockState->u8RockDir |= _YNA_CAM_LEFT; 
 			}
 			else if (i == 1)
 			{
-				pRockState->u8RockDir |= _YNA_CAM_DOWN; 
+				pRockState->u8RockDir |= _YNA_CAM_DOWN;
 			}
 			else
 			{
@@ -330,11 +330,11 @@ static bool RockGetValue(StRockState *pRockState)
 			}
 			if (i == 0)
 			{
-				pRockState->u8RockDir |= _YNA_CAM_LEFT;
+				pRockState->u8RockDir |= _YNA_CAM_RIGHT; 
 			}
 			else if (i == 1)
 			{
-				pRockState->u8RockDir |= _YNA_CAM_UP; 
+				pRockState->u8RockDir |= _YNA_CAM_UP;
 			}
 			else
 			{

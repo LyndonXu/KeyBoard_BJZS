@@ -25,8 +25,8 @@
 
 #define ADC_CHANNEL_1			ADC_Channel_10
 #define ADC_CHANNEL_2			ADC_Channel_11
-#define ADC_CHANNEL_3			ADC_Channel_13
-#define ADC_CHANNEL_4			ADC_Channel_12
+#define ADC_CHANNEL_3			ADC_Channel_12
+#define ADC_CHANNEL_4			ADC_Channel_13
 #define ADC_CHANNEL_5			ADC_Channel_8
 #define ADC_CHANNEL_6			ADC_Channel_9
 

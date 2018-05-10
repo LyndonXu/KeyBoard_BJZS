@@ -84,10 +84,9 @@ enum
 	_BJZS_Extern,
 };
 
-#define BJZS_ALT			0x01	
-#define BJZS_CTRL			0x02
-#define BJZS_SHIFT			0x04
-#define BJZS_WIN			0x08	
+#define BJZS_SHIFT			0x10
+#define BJZS_CTRL			0x11
+#define BJZS_ALT			0x12	
 
 #define PELCOD_ZOOM_WIDE	0x40
 #define PELCOD_ZOOM_TELE	0x20
