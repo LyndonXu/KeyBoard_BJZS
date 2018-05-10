@@ -2882,7 +2882,7 @@ static bool PushPodProcessForBJZS(StKeyMixIn *pKeyIn)
 	pBuf[_BJZS_Special] = BJZS_ALT;
 	pBuf[_BJZS_Key] = 0x30;
 	
-	u16Value = u16Value * 0x64 / PUSH_ROD_MAX_VALUE;
+	u16Value = u16Value * 0xFF / PUSH_ROD_MAX_VALUE;
 	
 	pBuf[_BJZS_Extern] = u16Value;
 
