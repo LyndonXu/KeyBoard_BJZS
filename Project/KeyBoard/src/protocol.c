@@ -3049,7 +3049,7 @@ bool PCEchoProcessYNA(StIOFIFO *pFIFO)
 					},
 				
 				};
-				
+				u8Array = u8Array - 1;
 				ChangeLedArrayState(u16Led[u8Array], 4, false);
 				ChangeLedState(GET_XY(u16Led[u8Array][pMsg[_YNA_Data2]]), boIsLight);
 
