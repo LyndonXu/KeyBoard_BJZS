@@ -676,6 +676,7 @@ bool RedressPushRodLimit (StIOFIFO *pFIFO)
 	ChangeAllLedState(false);
 	ChangeLedState(GET_XY(PR_CTRL_LED), true);
 	
+	KeyBufGetEnd(pFIFO);
 	do 
 	{
 		pFIFO = KeyBufGetBuf();

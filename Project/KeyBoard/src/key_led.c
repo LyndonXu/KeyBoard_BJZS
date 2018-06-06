@@ -148,6 +148,9 @@ static void KeyScanOnce(StKeyScan *pKey)
 	for (i = 0; i < KEY_Y_CNT; i++)
 	{
 		u16 u16KeyValue, u16Tmp;
+		
+		//for (j = 0; j < 20; j++);
+
 		u32Real = c_u8KeyPowerUsedMap[i];
 #if POWER_PIN_HAS_NULL
 		if (c_pKeyLedPowerPort[u32Real] != NULL)
@@ -156,10 +159,7 @@ static void KeyScanOnce(StKeyScan *pKey)
 			c_pKeyLedPowerPort[u32Real]->BRR = c_u16KeyLedPowerPin[u32Real];
 		}
 
-		for (j = 0; j < 40; j++);
-		__NOP();
-		__NOP();
-		__NOP();
+		for (j = 0; j < 120; j++);
 		
 		u16KeyValue = 0;
 		for (j = 0; j < KEY_X_CNT; j++)
@@ -175,14 +175,15 @@ static void KeyScanOnce(StKeyScan *pKey)
 			u16KeyValue |= (u16Tmp << j);
 		}
 		
+		pKey->stKeyTmp[u32Cnt].u8KeyValue[i] = u16KeyValue & 0xFF;
+		
 #if POWER_PIN_HAS_NULL
 		if (c_pKeyLedPowerPort[u32Real] != NULL)
 #endif
 		{
 			c_pKeyLedPowerPort[u32Real]->BSRR = c_u16KeyLedPowerPin[u32Real];
-		}
+		}	
 
-		pKey->stKeyTmp[u32Cnt].u8KeyValue[i] = u16KeyValue & 0xFF;
 	}
 	pKey->u32ScanCnt++;	
 }
