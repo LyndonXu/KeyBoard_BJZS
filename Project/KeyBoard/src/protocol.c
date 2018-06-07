@@ -1896,7 +1896,7 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 		if (pKeyState->u8KeyState == KEY_KEEP)
 		{
 			if ((u8KeyValue >= _Key_Cam_Ctrl_Present1) && 
-				(u8KeyValue <= _Key_Cam_Ctrl_Present4))
+				(u8KeyValue <= _Key_Cam_Ctrl_Present8))
 			{
 				goto next;
 			}
@@ -2358,6 +2358,12 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 			case _Key_Cam_Ctrl_Present7:
 			case _Key_Cam_Ctrl_Present8:
 			{
+				const u8 u8BJZSKey[8] = 
+				{
+					0x61, 0x62, 0x63, 0x64,
+					0x23, 0x24, 0x21, 0x22
+				};
+
 				static u32 u32KeyDownTime[8];
 				static bool boIsLongPress[8];
 				u8 u8Key = u8KeyValue - _Key_Cam_Ctrl_Present1;
@@ -2383,7 +2389,7 @@ static bool KeyBoardProcessForBJZS(StKeyMixIn *pKeyIn)
 				else
 				{
 					pBuf[_BJZS_Special] = 0;
-					pBuf[_BJZS_Key] = 0x61 + u8Key;
+					pBuf[_BJZS_Key] = u8BJZSKey[u8Key]; //0x61 + u8Key;
 					pBuf[_BJZS_Extern] = boIsLongPress[u8Key];
 					
 					ChangeLedBlinkState(GET_XY(c_u16LedPresent[u8Key]), false);
