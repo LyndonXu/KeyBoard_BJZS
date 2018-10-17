@@ -30,7 +30,7 @@
 #endif
 
 #ifndef LEVEL_ONE_CACHE_CNT
-#define LEVEL_ONE_CACHE_CNT 		32
+#define LEVEL_ONE_CACHE_CNT 		256
 #endif
 
 
@@ -79,9 +79,13 @@ bool IsUSBDeviceConnect()
 	return bDeviceState == CONFIGURED ? true : false;
 }
 
-void CopyToUSBMessage(void *pData, uint32_t u32Length)
+void CopyToUSBMessage(void *pData, uint32_t u32Length, uint16_t u16ID)
 {
 	if (!IsUSBDeviceConnect())
+	{
+		return;
+	}
+	if (u16ID != _IO_USB_ENDP1 && u16ID != _IO_USB_ENDP2)
 	{
 		return;
 	}
@@ -92,7 +96,7 @@ void CopyToUSBMessage(void *pData, uint32_t u32Length)
 		if (pBuf != NULL)
 		{
 			memcpy(pBuf, pData, u32Length);
-			if (MessageUSBWrite(pBuf, true, _IO_Reserved, u32Length) != 0)
+			if (MessageUSBWrite(pBuf, true, u16ID, u32Length) != 0)
 			{
 				free (pBuf);
 			}	
@@ -117,10 +121,10 @@ StIOFIFO *MessageUSBFlush(bool boSendALL)
 			break;
 		}
 		
-		while(((int32_t)u32Length) >= REPORT_OUT_SIZE_WITH_ID)
+		while(((int32_t)u32Length) >= MIDI_JACK_SIZE)
 		{
 			StIOFIFOList *pFIFO = NULL;
-			void *pMsg = malloc(REPORT_OUT_SIZE_WITH_ID);
+			void *pMsg = malloc(MIDI_JACK_SIZE);
 			if (pMsg == NULL)
 			{
 				break;
@@ -132,16 +136,16 @@ StIOFIFO *MessageUSBFlush(bool boSendALL)
 				free(pMsg);
 				break;
 			}
-			memcpy(pMsg, pData, REPORT_OUT_SIZE_WITH_ID);
+			memcpy(pMsg, pData, MIDI_JACK_SIZE);
 			pFIFO->pData = pMsg;
-			pFIFO->s32Length = REPORT_OUT_SIZE_WITH_ID;
+			pFIFO->s32Length = MIDI_JACK_SIZE;
 			pFIFO->boNeedFree = true;
-			pFIFO->u8ProtocolType = _Protocol_SB_HID;
+			pFIFO->u8ProtocolType = _Protocol_MIDI;
 			
 			InsertIntoTheRWFIFO(&s_stIOFIFOCtrl, pFIFO, true);
 
-			u32Length -= REPORT_OUT_SIZE_WITH_ID;
-			pData += REPORT_OUT_SIZE_WITH_ID;
+			u32Length -= MIDI_JACK_SIZE;
+			pData += MIDI_JACK_SIZE;
 		}
 	} while (0);
 	
@@ -157,20 +161,41 @@ StIOFIFO *MessageUSBFlush(bool boSendALL)
 			/* device is online */
 			if (bDeviceState == CONFIGURED)
 			{
-				if (GetEPTxStatus(ENDP1) == EP_TX_NAK)
+				if (stLastFIFO.u16ID == _IO_USB_ENDP1)
 				{
-					
-				}
-				else
-				{
-					if (boSendALL)
+					if (GetEPTxStatus(ENDP1) == EP_TX_NAK)
 					{
-						continue;	/* wait to finish to send this message */
+						
 					}
 					else
 					{
-						break;
-					}			
+						if (boSendALL)
+						{
+							continue;	/* wait to finish to send this message */
+						}
+						else
+						{
+							break;
+						}			
+					}
+				}
+				else
+				{
+					if (GetEPTxStatus(ENDP2) == EP_TX_NAK)
+					{
+						
+					}
+					else
+					{
+						if (boSendALL)
+						{
+							continue;	/* wait to finish to send this message */
+						}
+						else
+						{
+							break;
+						}			
+					}
 				}
 			}
 			
@@ -215,11 +240,29 @@ StIOFIFO *MessageUSBFlush(bool boSendALL)
 			}
 			else
 			{
-				USB_SIL_Write(EP1_IN, pFIFO->pData, pFIFO->s32Length);
-				SetEPTxValid(ENDP1);				
 				boHasSendAMessage = true;
 				
 				stLastFIFO = *pFIFO;
+				
+				if (stLastFIFO.u16ID == _IO_USB_ENDP1)
+				{
+					USB_SIL_Write(EP1_IN, pFIFO->pData, pFIFO->s32Length);
+					SetEPTxValid(ENDP1);				
+				}
+				else if (stLastFIFO.u16ID == _IO_USB_ENDP2)
+				{
+					USB_SIL_Write(EP2_IN, pFIFO->pData, pFIFO->s32Length);
+					SetEPTxValid(ENDP2);				
+				}
+				else
+				{
+					if (pFIFO->boNeedFree)
+					{
+						free(pFIFO->pData);
+					}
+					
+					boHasSendAMessage = false;
+				}
 				
 				ReleaseAUsedFIFO(&s_stIOFIFOCtrl, pFIFO);
 				if (boSendALL)
@@ -280,6 +323,7 @@ int32_t MessageUSBWrite(void *pData, bool boNeedFree, uint16_t u16ID, uint32_t u
 	pFIFO->pData = pData;
 	pFIFO->s32Length = u32Length;
 	pFIFO->boNeedFree = boNeedFree;
+	pFIFO->u16ID = u16ID;
 	InsertIntoTheRWFIFO(&s_stIOFIFOCtrl, pFIFO, false);
 	
 	return 0;

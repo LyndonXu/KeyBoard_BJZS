@@ -11,7 +11,9 @@
 extern u8 g_u8KeyTable[KEY_Y_CNT][KEY_X_CNT];
 enum 
 {
-	_Key_Make_Record = 1,
+	_Key_Ctrl_Begin = 1,
+
+	_Key_Make_Record = _Key_Ctrl_Begin,
 	_Key_Make_Live,
 	_Key_Make_FullScreen,
 	_Key_Make_MutliRecord,
@@ -106,8 +108,10 @@ enum
 	_Key_Switch_Speed,
 	_Key_Rock_Btn,
 	_Key_MiniRock_Btn,
+
+	_Key_Ctrl_Reserved_Inner1,
 	
-	_Key_Ctrl_Reserved,
+	_Key_Ctrl_Reserved = _Key_Ctrl_Reserved_Inner1,
 
 };
 

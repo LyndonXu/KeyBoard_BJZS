@@ -69,6 +69,8 @@ void SysTick_Handler(void)
 #if 1	
 	KeyLedFlush();/* Å¼ÊýÉ¨Ãè¼üÅÌ */		
 	FlushBuzzer();
+	
+	CodeSwitchFlush();
 
 #if 1
 	if ((g_u32SysTickCnt & 0x0F) == 0x0F) /* 64ms */ 
@@ -85,7 +87,6 @@ void SysTick_Handler(void)
 		}
 		else if (u8Cnt == 2)
 		{
-			CodeSwitchFlush();
 		}
 		else if (u8Cnt == 3)
 		{		

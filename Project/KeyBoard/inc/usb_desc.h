@@ -35,33 +35,37 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported define -----------------------------------------------------------*/
-#define USB_DEVICE_DESCRIPTOR_TYPE              0x01
-#define USB_CONFIGURATION_DESCRIPTOR_TYPE       0x02
-#define USB_STRING_DESCRIPTOR_TYPE              0x03
-#define USB_INTERFACE_DESCRIPTOR_TYPE           0x04
-#define USB_ENDPOINT_DESCRIPTOR_TYPE            0x05
+//#define USB_DEVICE_DESCRIPTOR_TYPE              0x01
+//#define USB_CONFIGURATION_DESCRIPTOR_TYPE       0x02
+//#define USB_STRING_DESCRIPTOR_TYPE              0x03
+//#define USB_INTERFACE_DESCRIPTOR_TYPE           0x04
+//#define USB_ENDPOINT_DESCRIPTOR_TYPE            0x05
+#define MIDI_SIZ_CONFIG_DESC_INNER				101
+#define JOYSTICK_SIZ_CONFIG_DESC_INNER			32
+#define JOYSTICK_CONFIG_DESC_OFFSET				MIDI_SIZ_CONFIG_DESC_INNER
 
-#define HID_DESCRIPTOR_TYPE                     0x21
-#define JOYSTICK_SIZ_HID_DESC                   0x09
-#define JOYSTICK_OFF_HID_DESC                   0x12
-
-#define HID_DESCRIPTOR_TYPE                     0x21
-#define JOYSTICK_SIZ_HID_DESC                   0x09
-#define KeyBoard_OFF_HID_DESC                   0x12
-#define Mouse_OFF_HID_DESC                 		41
 
 #define JOYSTICK_SIZ_DEVICE_DESC                18
-#define JOYSTICK_SIZ_CONFIG_DESC                41
-#define KeyBoard_SIZ_REPORT_DESC                35
-#define Mouse_SIZ_REPORT_DESC                   86
-//157 171
+#define JOYSTICK_SIZ_CONFIG_DESC                133
 #define JOYSTICK_SIZ_STRING_LANGID              4
 #define JOYSTICK_SIZ_STRING_VENDOR              26
-#define JOYSTICK_SIZ_STRING_PRODUCT             20
-
+#define JOYSTICK_SIZ_STRING_PRODUCT             40
 #define JOYSTICK_SIZ_STRING_SERIAL              24
 
+
+#define MIDI_SIZ_DEVICE_DESC                JOYSTICK_SIZ_DEVICE_DESC    
+#define MIDI_SIZ_CONFIG_DESC                JOYSTICK_SIZ_CONFIG_DESC    
+#define MIDI_SIZ_STRING_LANGID              JOYSTICK_SIZ_STRING_LANGID  
+#define MIDI_SIZ_STRING_VENDOR              JOYSTICK_SIZ_STRING_VENDOR  
+#define MIDI_SIZ_STRING_PRODUCT             JOYSTICK_SIZ_STRING_PRODUCT 
+#define MIDI_SIZ_STRING_SERIAL              JOYSTICK_SIZ_STRING_SERIAL  
+
+
 #define STANDARD_ENDPOINT_DESC_SIZE             0x09
+
+
+#define JOYSTICK_REPORT_ID						2
+#define JOYSTICK_MINI_REPORT_ID					3
 
 #define REPORT_ID								1
 #define REPORT_IN_SIZE							3					/* for PC */
@@ -69,15 +73,76 @@
 #define REPORT_IN_SIZE_WITH_ID					REPORT_IN_SIZE + 1 	/* for PC */
 #define REPORT_OUT_SIZE_WITH_ID					REPORT_OUT_SIZE + 1 /* for PC */
 
+
+//定义的端点类型
+#define ENDPOINT_TYPE_CONTROL           0x00  //控制传输
+#define ENDPOINT_TYPE_ISOCHRONOUS       0x01  //同步传输
+#define ENDPOINT_TYPE_BULK              0x02  //批量传输
+#define ENDPOINT_TYPE_INTERRUPT         0x03  //中断传输
+
+//类特殊接口描述符类型
+#define CS_INTERFACE_DESCRIPTOR 0x24
+
+//类特殊端点描述符类型
+#define CS_ENDPOINT_DESCRIPTOR 0x25
+
+//音频类
+#define AUDIO                   0x01
+//音频控制子类
+#define AUDIO_CONTROL           0x01
+//头描述符子类
+#define HEADER                  0x01
+
+//MIDI流子类
+#define MIDISTREAMING           0x03
+
+//MS头描述符号子类
+#define MS_HEADER               0x01
+
+//MIDI_IN_JACK子类
+#define MIDI_IN_JACK         0x02
+
+//EMBEDDED类
+#define EMBEDDED             0x01
+
+//EXTERNAL类
+#define EXTERNAL             0x02
+
+//MIDI_OUT_JACK子类
+#define MIDI_OUT_JACK        0x03
+
+//MS_GENERAL子类
+#define MS_GENERAL           0x01
+
+//实体数
+#define NUMBER_OF_ENTITY        1
+
+//插口数
+#define NUMBER_OF_JACK          1
+
+//MIDI接口数
+#define NUMBER_OF_MIDI_INTERFACE 1
+
+
+#define MAIN_POINT_OUT 				0x01
+#define MAIN_POINT_IN 				0x81
+
+#define MIDI_JACK_SIZE				4
+
+#define JOYSTICK_POINT_IN			0x82
+#define HID_DESCRIPTOR_TYPE			0x21
+#define REPORT_DESCRIPTOR_TYPE		0x22
+
+#define JOYSTICK_REPORT_DESC_SIZE	99
+
 /* Exported functions ------------------------------------------------------- */
 extern const uint8_t Joystick_DeviceDescriptor[JOYSTICK_SIZ_DEVICE_DESC];
 extern const uint8_t Joystick_ConfigDescriptor[JOYSTICK_SIZ_CONFIG_DESC];
-extern const uint8_t KeyBoard_ReportDescriptor[KeyBoard_SIZ_REPORT_DESC];
-extern const uint8_t Mouse_ReportDescriptor[Mouse_SIZ_REPORT_DESC];
 extern const uint8_t Joystick_StringLangID[JOYSTICK_SIZ_STRING_LANGID];
 extern const uint8_t Joystick_StringVendor[JOYSTICK_SIZ_STRING_VENDOR];
 extern const uint8_t Joystick_StringProduct[JOYSTICK_SIZ_STRING_PRODUCT];
 extern uint8_t Joystick_StringSerial[JOYSTICK_SIZ_STRING_SERIAL];
+extern const uint8_t Joystick_ReportDescriptor[JOYSTICK_REPORT_DESC_SIZE];
 
 
 #endif /* __USB_DESC_H */

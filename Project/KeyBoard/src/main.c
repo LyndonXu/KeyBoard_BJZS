@@ -173,7 +173,7 @@ int main()
 		
 		if (pMsgUSB != NULL)
 		{
-			//PCEchoProcess(pMsgUSB);			
+			PCEchoProcess(pMsgUSB);			
 		}
 		
 		KeyBufGetEnd(pKeyIn);				

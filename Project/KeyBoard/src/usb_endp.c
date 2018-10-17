@@ -59,14 +59,14 @@ void EP1_IN_Callback(void)
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-uint8_t Receive_Buffer[REPORT_OUT_SIZE_WITH_ID];
+uint8_t Receive_Buffer[MIDI_JACK_SIZE];
 void EP1_OUT_Callback(void)
 {
 	/* Read recieved data (2 bytes) */  
 	USB_SIL_Read(EP1_OUT, Receive_Buffer);
 	SetEPRxStatus(ENDP1, EP_RX_VALID);
 
-	//MessageUSBWriteInDate(Receive_Buffer, REPORT_OUT_SIZE_WITH_ID);
+	MessageUSBWriteInDate(Receive_Buffer, MIDI_JACK_SIZE);
 }
 
 

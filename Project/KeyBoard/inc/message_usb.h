@@ -24,6 +24,6 @@ extern const StIOTCB c_stUSBIOTCB;
 
 void MessageUSBWriteInDate(void *pData, uint32_t u32Length);
 bool IsUSBDeviceConnect(void);
-void CopyToUSBMessage(void *pData, uint32_t u32Length);
+void CopyToUSBMessage(void *pData, uint32_t u32Length, uint16_t u16ID);
 
 #endif

@@ -10,6 +10,12 @@
 #define _USER_API_H_
 #include "stm32f10x_conf.h"
 
+typedef struct _tagStPinSource
+{
+	GPIO_TypeDef *const pPort;
+	u16 u16Pin;
+}StPinSource;
+
 extern u32 g_u32SysTickCnt;
 extern u32 g_u32BoolIsEncode;
 

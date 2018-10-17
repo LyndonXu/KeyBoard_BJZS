@@ -50,6 +50,8 @@ enum
 	_IO_UART1,
 	_IO_UART2,
 	_IO_USB,
+	_IO_USB_ENDP1,
+	_IO_USB_ENDP2,
 	
 	_IO_Reserved,
 };
@@ -131,11 +133,18 @@ typedef enum _tagEmProtocol
 	_Protocol_SB_HID,
 	_Protocol_BJZS,
 	_Protocol_BJZS_HID,
+	_Protocol_MIDI,
 	
 	_Protocol_Reserved,	
 }EmProtocol;
 
 extern EmProtocol g_emProtocol;
+extern u8 g_u8MIDIChannel;
+
+#define DEFAULT_MAIN_PROTOCOL			_Protocol_YNA
+#define DEFAULT_MIDI_CHANNEL			0
+
+
 
 #define PRINT_MFC(x, ...)
 

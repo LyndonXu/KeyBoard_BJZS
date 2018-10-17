@@ -45,6 +45,10 @@ typedef enum _HID_REQUESTS
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
+
+#define GET_CUR                           0x81
+#define SET_CUR                           0x01
+
 /* Exported functions ------------------------------------------------------- */
 void Joystick_init(void);
 void Joystick_Reset(void);
@@ -75,7 +79,6 @@ uint8_t *Joystick_GetHIDDescriptor(uint16_t Length);
 #define Joystick_SetDeviceFeature          NOP_Process
 //#define Joystick_SetDeviceAddress          NOP_Process
 
-#define REPORT_DESCRIPTOR                  0x22
 
 #endif /* __USB_PROP_H */
 

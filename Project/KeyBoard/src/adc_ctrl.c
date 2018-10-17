@@ -240,8 +240,8 @@ static bool MiniRockGetValue(StRockState *pRockState)
 		}
 	}
 
-	pRockState->u16RockXValue >>= 1;
-	pRockState->u16RockYValue >>= 1;
+	//pRockState->u16RockXValue >>= 1;
+	//pRockState->u16RockYValue >>= 1;
 	
 	if (pRockState->u8RockDir == 0)
 	{
@@ -347,9 +347,9 @@ static bool RockGetValue(StRockState *pRockState)
 		}
 	}
 
-	pRockState->u16RockXValue >>= 1;
-	pRockState->u16RockYValue >>= 1;
-	pRockState->u16RockZValue >>= 3;
+	//pRockState->u16RockXValue >>= 1;
+	//pRockState->u16RockYValue >>= 1;
+	//pRockState->u16RockZValue >>= 3;
 	
 	if (pRockState->u8RockDir == 0)
 	{
